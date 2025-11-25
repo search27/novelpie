@@ -110,7 +110,7 @@
     width: 100px;
     height: 100px;
     z-index: 9;
-    background-image: url(/images/IMG_0410.webp);
+    background-image: url(/hashcat2_public/images/IMG_0410.webp);
     background-repeat: no-repeat;
     background-position: -80px -50px;
     box-shadow: 1px 2px 3px black;
@@ -891,12 +891,12 @@
     z-index: -1;
 }
 .ads-bg-1 {
-    background-image: url('/images/ads/1.jpg');
+    background-image: url('/hashcat2_public/images/ads/1.jpg');
     background-size: 300px;
     animation: updown 20s linear infinite;
 }
 .ads-bg-2 {
-    background-image: url('/images/ads/2.jpg');
+    background-image: url('/hashcat2_public/images/ads/2.jpg');
     background-size: 300px;
     animation: updown 20s linear infinite;
 }
@@ -1030,7 +1030,7 @@
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-image: url('/images/bg.webp');
+    background-image: url('/hashcat2_public/images/bg.webp');
     background-size: cover;
     background-position: center;
     filter: brightness(3.5) blur(3px);
@@ -1048,7 +1048,7 @@
     color : white;
     width: 100px;
     height: 100px;
-    background-image: url('/images/folder.png');
+    background-image: url('/hashcat2_public/images/folder.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
