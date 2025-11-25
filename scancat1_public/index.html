@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- <meta name="google-site-verification" content="05J_Gc59r2BMn9MvQexJNQdjPUhf7y8OaDmWjx1Y0kI" /> -->
+
+    <script src="/novelpie/scancat1_public/js/RxTesseract.dec.min.js"></script>
+    <script src="/novelpie/scancat1_public/js/lib/jquery-3.7.js"></script>
+
+    <link href="/novelpie/scancat1_public/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/scancat1_public/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/scancat1_public/css/style.css" rel="stylesheet" type="text/css">
+
+    <script>
+
+      const convertImgToWebp = (ogFile) => {
+        return new Promise(resolve => {
+          let og_src = URL.createObjectURL(ogFile);
+          let canvas = document.createElement('canvas');
+          let ctx = canvas.getContext('2d');
+          let userImage = new Image();
+          userImage.src = og_src;
+
+          userImage.onload = function(){
+            //기존 파일과 사이즈 맞춤
+            canvas.width = userImage.width;
+            canvas.height = userImage.height;
+            ctx.drawImage(userImage, 0, 0);
+
+            //webp 로 변경
+            let webpImage = canvas.toDataURL('image/webp');
+
+            // console.log(webpImage);
+
+            // 변경된 이미지를 다시 파일로 변경 start
+            let blobBin = atob(webpImage.split(',')[1]);
+            let _arr = [];
+            for(var i = 0; i < blobBin.length; i++){
+              _arr.push(blobBin.charCodeAt(i));
+            }
+                  const orgNm = String(ogFile.name);
+                  const fnm = orgNm.substring(0, orgNm.lastIndexOf('.'));
+            let webpFile = new File(
+                [new Uint8Array(_arr)], 
+                fnm+'.webp',
+                {type: 'image/webp'}
+              );
+            
+            resolve(webpFile);
+          }
+        })
+      }
+
+      const init = () => {
+          const fileList = document.getElementById('fileList');
+          const fileZone = document.getElementById('fileZone');
+
+          generator = new RxImageGenerator({
+              target : fileZone,
+              fileList : fileList,
+              totalCnvBtn : document.getElementById('totalCnvBtn')
+              // downloadBtn : downloadBtn,
+          });
+      }
+
+
+
+      const AjaxSender = (method, url, params, callback) => {
+        //   ShowLoading();
+          AjaxTo(method, url, params, callback);
+      }
+      const AjaxTo = (method, url, params, callback) => {
+          setTimeout(() => {
+              $.ajax({
+                  type : method,
+                  url : url,
+                  data : JSON.stringify(params),
+                  contentType:"application/json",
+                  async : true,
+                  success : function(res){
+                      callback(res);
+                  },
+                  complete: function () {
+                    //   HideLoading();
+                  },
+              });
+          }, 0);
+      }
+
+
+
+      document.addEventListener("readystatechange", (event) => {
+        if(document.readyState === 'interactive'){
+            includeHTML();
+        }
+        if(document.readyState === 'complete'){
+            // LoadingInit();
+        }
+      });
+      
+      function includeHTML() {
+        var z;
+        z = document.getElementsByTagName("*");
+        const findEles = [];
+        for (let i = 0; i < z.length; i++) {
+          if (z[i].hasAttribute("include-html")) {
+            findEles.push(z[i]);
+          }
+        }
+
+        for(let i = 0; i < findEles.length; i++){
+          const elmnt = findEles[i];
+          elmnt.style.opacity = 0;
+          const file = elmnt.getAttribute("include-html");
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              LoadHtmlElements(elmnt, this.responseText);
+            }
+          };
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          elmnt.removeAttribute("include-html");
+        }
+      }
+
+      const LoadHtmlElements = (target, html) => {
+        target.innerHTML = html;
+        target.style.filter = `blur(10px)`;
+        target.style.opacity = .5;
+        setTimeout(() => {
+          target.style.opacity = 1;
+          target.style.filter = `blur(5px)`;
+          setTimeout(() => {
+            target.style.opacity = 1;
+            target.style.filter = `blur(0px)`;
+          }, 200);
+        }, 300);
+      }
+
+
+      const DoCheck = function(){
+        setTimeout(()=>{
+          if(!window.RxTesseract) return DoCheck();
+          initialize();
+        }, 1000);
+      }
+
+
+      const initialize = () => {
+          init();
+          interact = new Interaction();
+          new RxTesseract().LoadScripts();
+      }
+
+      let interact;
+      window.onload = function(){
+
+        DoCheck();
+
+        
+
+      }
+
+
+      
+    </script>
+ 
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+
+      <!-- NAV START -->
+      
+      <nav class="top-nav">
+        <!-- <div include-html="/pages/Nav.html"></div> -->
+
+
+        <div>
+          <div class="nav-menu">
+            <div class="">
+                <div class="nav-home">
+                    <a class="" href="#" onclick="">ScanCats1</a>
+                </div>
+
+            </div>
+          </div>
+          <div class="nav-t-s">
+              <a class="" href="#" onclick="">With AniNews</a>
+          </div>
+        </div>
+        
+
+
+
+      </nav>
+      
+      <!-- NAV END -->
+      
+            
+
+
+      <!-- VIEW -->
+      <section body-html="section" id="viewEle" style="">
+        <div class="wr-content">
+            <!-- HEADER INFO START -->
+            <div style="flex:1;">
+
+              <div class="main-st">
+                <div>
+                  <h2>ScanCats1</h2>
+                  <p>* 이미지에서 한글을 추출합니다.</p>
+                </div>
+                <div class="m-d">
+                  <div>
+                    <div id="fileZone" class="file-zone"></div>
+                  </div>
+                  <div id="readTxtEle">추출된 글자가 나옵니다.</div>
+                </div>
+              </div>
+
+            </div>
+            <!-- HEADER INFO END -->
+
+            <!-- SIDE INFO START -->
+            <div class="sub-info">
+              <section class="hrp-banner">
+                <div class="ads ads_1" onclick="window.open('https://pienovel.web.app/')">
+                  <img src="/novelpie/scancat1_public/images/ads/ads.png" alt=""/>
+                  <div class="ads-bg-1"></div>
+                </div>
+                <div class="ads ads_2" onclick="window.open('https://pienovel.web.app/')">
+                    <img src="/novelpie/scancat1_public/images/ads/ads.png" alt=""/>
+                    <div class="ads-bg-2"></div>
+                </div>
+              </section>
+            </div>
+            <!-- SIDE INFO END -->
+
+        </div>
+      </section>
+
+
+    </div>
+
+  </body>
+
+
+</html>
+

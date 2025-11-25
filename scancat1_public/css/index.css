@@ -1,0 +1,1010 @@
+.s-info {
+    font-family: 'Noto Sans KR';
+}
+.s-info * {
+    font-family: 'Noto Sans KR';
+}
+.s-info svg {
+    width: 20px;
+    height: 20px;
+}
+.s-info strong {
+    color : #FFF601;
+    font-weight : 900;
+    text-shadow: 1px 1px 0 black;
+}
+/* NAV START */
+
+.top-nav {
+    position: relative;
+    width: 100%;
+    height: 64px;
+    padding : 8px 16px;
+    background-color: #ffffff;
+    z-index: 9;
+}
+.top-nav * {
+    font-family: 'Noto Sans KR';
+}
+.top-nav > div {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr minmax(220px, 528px) 1fr;
+    /* display : flex; */
+}
+.top-nav > div > div {
+    height: fit-content;
+}
+
+.nav-menu {
+    display: flex;
+    max-width: 224px;
+}
+.nav-menu > div {
+    display: flex;
+    align-items: center;
+}
+.nav-menu > div > button {
+    border: 0;
+    background: none;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    cursor: pointer;
+    overflow: hidden;
+
+    padding: 10px;
+}
+
+
+.nav-menu .nav-home a {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 25px;
+    padding: 0 10px;
+
+    background-image: linear-gradient(-45deg, #c5f9d7, #f7d486, #f27a7d);
+    background-clip : text;
+    color: transparent;
+    filter: drop-shadow(1px 1px 0px black);
+}
+
+.nav-t-s {
+    padding: 7px;
+}
+
+.nav-t-s a {
+    width: 150px;
+    font-weight: 500;
+    padding : 5px 10px;
+}
+.nav-t-s a:hover{
+    font-weight: 100;
+}
+
+
+
+
+.loading-wr {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 9999999999999999;
+    
+}
+#sakura {
+    width : 100%;
+    height: 100%;
+    filter: sepia(1) opacity(0.9);
+}
+.loading {
+    border-top: 3px solid white;
+    border-radius: 10px 50%;
+    position: absolute;
+    top: calc(50% - 50px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    z-index: 9;
+    background-image: url(/novelpie/scancat1_public/images/IMG_0410.webp);
+    background-repeat: no-repeat;
+    background-position: -80px -50px;
+    box-shadow: 1px 2px 3px black;
+}
+
+.loading > div {
+    font-family: 'Noto Sans KR';
+
+}
+.loading > div:nth-child(1) {
+    position: absolute;
+    top: calc(50% + 25px);
+    left: calc(50% + 75px);
+    transform: translate(-50%, -50%);
+
+    height: 132px;
+    text-align: center;
+
+    border-top: 3px solid white;
+    border-radius: 7px;
+
+    background-color: #FFF601;
+    color : #FF8D64;
+
+    font-size: 13px;
+    font-weight: bold;
+    writing-mode: vertical-rl;
+    padding : 10px 3px;
+    box-shadow: 1px 2px 3px black;
+}
+.loading > div:nth-child(2) {
+    position: absolute;
+    top: calc(50% + 72px);
+    left: calc(50% - 16px);
+    transform: translate(-50%, -50%);
+    width: 135px;
+    height: 36px;
+    text-align: center;
+    border-top: 3px solid white;
+    border-radius: 7px;
+    background-color: #1f1f1f;
+    color: #FFF601;
+    font-size: 13px;
+    padding: 3px 10px;
+    box-shadow: 1px 2px 3px black;
+    line-height: 28px;
+}
+.loading > div:nth-child(3) {
+    position: absolute;
+    top: calc(50% + 25px);
+    left: calc(50% + 103px);
+    transform: translate(-50%, -50%);
+
+    height: 139px;
+    text-align: center;
+
+    border-top: 3px solid white;
+    border-radius: 7px;
+
+    color : #1f1f1f;
+
+    font-size: 12px;
+    writing-mode: vertical-rl;
+    padding : 10px 3px;
+}
+
+
+/* VIEWER START */
+.wr-content {
+    display: flex;
+    max-width: 1016px;
+    margin : 0 auto;
+}
+
+.serial-wr {
+    width: 704px;
+    margin: 0 auto;
+
+    background: white;
+    font-size: 13.5px;
+    line-height: calc(1em + 8px);
+    border-radius: 8px;
+}
+.ser-h {
+    padding: 16px;
+}
+.ser-b {
+    position: relative;
+    color: rgb(31, 31, 31);
+    background: rgb(255, 255, 255);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+
+.serial-header{
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin: 48px auto;
+    padding: 0px 16px;
+}
+.serial-header-info {
+    width: 600px;
+}
+.serial-header-info * {
+    font-family: 'Noto Sans KR';
+}
+
+.serial-img {
+    width: 136px;
+    height: 191px;
+    object-fit: cover;
+    object-position: center center;
+}
+.serial-img-a {
+    margin-right: 12px;
+}
+    
+
+
+.serial {
+    text-decoration: none;
+    color: rgb(133, 133, 133);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.serial-title {
+    margin: 0px 0px 8px;
+    color: rgb(31, 31, 31);
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.kr-num-dv {
+    color: rgb(133, 133, 133);
+    font-size: 12px;
+    line-height: 1.33;
+    margin: 18px 0px;
+}
+.kr-num {
+    color: #858585;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: inherit;
+    line-height: inherit;
+    vertical-align: bottom;
+}
+.kr-tag-footer {
+    display: flex;
+    margin: 16px 0px;
+    color: rgb(133, 133, 133);
+    line-height: 18px;
+}
+
+.kr-tag-wr {
+    margin: 0px -6px 0px 0px;
+    list-style: none;
+    padding-left: 0px;
+    word-break: break-all;
+}
+.kr-tag-wr > li {
+    display: inline;
+    margin: 0px 12px 0px 0px;
+}
+.kr-tag {
+    color: rgb(61, 118, 153);
+}
+.kr-tag a {
+    color: rgb(61, 118, 153);
+}
+
+.num-info {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 16px -4px;
+    list-style: none;
+    padding: 0px;
+}
+.num-info > li {
+    flex: 0 0 auto;
+    margin: 0px 8px;
+}
+.num-info > li a {
+    cursor: pointer;
+}
+.num-info > li dl {
+    display: flex;
+    margin: 0px -4px;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 1;
+    color: rgb(133, 133, 133);
+    cursor: auto;
+}
+.num-info > li dd {
+    margin: 0px 2px;
+    line-height: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    color : rgb(133, 133, 133);
+    padding : 0 5px;
+}
+
+.serial-date {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.serial-date time {
+    display: block;
+    color: rgb(133, 133, 133);
+    font-size: 12px;
+    line-height: 1;
+}
+.plus {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    stroke: #3d7699;
+}
+.plus svg {
+    stroke: inherit;
+    stroke-linecap: round;
+    stroke-width: 2;
+}
+
+
+.content {
+    margin: 0px auto;
+    padding: 0px;
+    width: auto;
+    max-width: 620px;
+    overflow-x: visible;
+    height: auto;
+    max-height: none;
+    min-height: auto;
+    font-size: 15.5px;
+    line-height: 2;
+    transition: none;
+
+    color : inherit;
+}
+.content * {
+    color : #1f1f1f;
+    transition: none;
+}
+.content h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: inherit;
+    margin: 1em 0px;
+    writing-mode: inherit;
+    color : inherit;
+}
+.content h2 span {
+    color : inherit;
+}
+.content > p {
+    font-size: inherit;
+    font-family: inherit;
+    transform: translateY(1px);
+    margin: calc(2em - 1px) 0px 2em;
+    contain-intrinsic-size: auto 300px;
+    text-align: justify;
+    writing-mode: inherit;
+    color : inherit;
+}
+
+.content > p > span {
+    display: inline-block;
+    font-size: inherit;
+    font-family: inherit;
+    color : inherit;
+
+    line-height: 2;
+    font-feature-settings: normal;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    text-align: justify;
+    writing-mode: inherit;
+    /* letter-spacing: 0.35px; */
+}
+
+
+
+.content-mv-btn {
+    display: flex;
+    flex-flow: column;
+}
+.content-mv-btn > button {
+    font-size: 1rem;
+    line-height: calc(1em + 8px);
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.32);
+    background: transparent;
+    border: none;
+    outline: none;
+    touch-action: manipulation;
+    user-select: none;
+    flex: 0 0 auto;
+    padding: 64px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+.content-mv-btn > button * {
+    font-family: 'Noto Sans KR';
+
+}
+.content-mv-btn > button > div {
+    display: flex;
+    flex-flow: column;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: -2px;
+}
+.content-mv-btn > button > div > div {
+    display: flex;
+    padding: 4px;
+    margin: 2px;
+}
+.content-mv-btn > button > div svg {
+    stroke: #666;
+    fill: none;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+.content-mv-btn > button > div span {
+    margin: 2px;
+    stroke: #666;
+    font-size: 14px;
+}
+.content-mv-btn > button:hover {
+    opacity: 0.8;
+}
+.content-mv-btn > button:active {
+    opacity: 1;
+}
+
+
+
+
+/* right */
+.sub-info {
+    margin-left: 24px;
+    width: 200px;
+    flex: 0 0 auto;
+}
+
+.sub-info .hrp-banner {
+    position: relative;
+    text-align: center;
+    padding : 10px 0;
+}
+.sub-info .hrp-banner img {
+    border-radius: 10px;
+    /* width: 250px; */
+    width: 100%;
+}
+
+.write-ct {
+
+}
+.write-ct * {
+    font-size: 14px;
+    font-family: 'Noto Sans KR';
+}
+.write-ct h2 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0px;
+    font-size: 1em;
+}
+.write-ct h2 div {
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: 0px;
+    word-break: break-all;
+    color: rgb(31, 31, 31);
+    text-decoration: none;
+}
+
+.write-ct-info {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.write-ct-info img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+
+.write-ct > a {
+    display: block;
+    line-height: 1;
+    text-decoration: none;
+    margin-top: 8px;
+}
+.write-ct > a > button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    box-sizing: border-box;
+    padding: 0 24px;
+    border-style: none;
+    outline: none;
+    text-rendering: inherit;
+    letter-spacing: inherit;
+    word-spacing: inherit;
+    text-decoration: none;
+    font: inherit;
+    margin: 0;
+    overflow: visible;
+    text-transform: none;
+    width: -webkit-min-content;
+    width: min-content;
+    display: inline-grid;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    border-radius: 999999px;
+    font-size: 13px;
+    line-height: 22px;
+    font-weight: 700;
+    color: #474747;
+    background-color: rgba(0,0,0,0.04);
+    transition: color .2s, background-color .2s, box-shadow .2s;
+    height: 40px;
+
+    width: 100%;
+    height: 32px;
+    padding: 0 16px;
+}
+
+.del-btn {
+    color : white !important;
+    background-color: #f27a7d !important;
+}
+.del-btn:hover {
+    color : white;
+    background-color :#FF8D64;
+    filter: initial;
+}
+.del-btn:active {
+    color : white;
+    background-color :#FFF601;
+    filter: initial;
+}
+
+
+.write-ct-index {
+    padding : 10px 0;
+}
+.write-ct-index h2 .write-ct-info > a div {
+    position: relative;
+    width: 100px;
+    height: 134px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.write-ct-index .write-ct-info img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: initial;
+    height: 100%;
+    border-radius: initial;
+}
+
+
+
+
+.serial-list {
+    padding : 20px 0;
+}
+.serial-list * {
+    font-family: 'Noto Sans KR';
+    font-size: 11.5px;
+}
+.serial-list header {}
+.serial-list header > a {}
+.serial-list header > a div {
+    color: rgb(133, 133, 133);
+}
+.serial-list header > a h2 {
+    color: rgb(71, 71, 71);
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0px;
+    font-weight: bold;
+}
+
+.serial-list nav {}
+.serial-list nav ol {
+    overflow-y: auto;
+    max-height: calc(13.5em);
+    margin: 0px calc(-6px);
+    padding: 0px;
+    font-weight: bold;
+    list-style: none;
+}
+.serial-list nav ol li {}
+.serial-list nav ol li a {
+    display: block;
+    padding: calc(6px);
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.64);
+    background: transparent;
+    border: none;
+    outline: none;
+    touch-action: manipulation;
+    user-select: none;
+    font-size: inherit;
+    line-height: inherit;
+}
+.serial-list nav ol li a:hover{
+    background: rgba(0, 0, 0, 0.04);
+    filter: initial;
+}
+.serial-list nav ol li a.active {
+    background: rgba(0, 0, 0, 0.04);
+    filter: initial;
+}
+
+
+
+.settings-wr {
+    position: relative;
+    bottom: 0;
+    background: white;
+    width: inherit;
+    transition: initial;
+    height: 35px;
+}
+
+.setting-btn {
+    border: 1px solid rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
+    color: inherit;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+
+.text-settings {
+    border : 1px solid #ccc;
+    border-radius: 5px;
+    color: rgb(71, 71, 71);
+    overflow: hidden auto;
+    min-width: 160px;
+    max-width: 320px;
+    max-height: 480px;
+
+    background-color: white;
+    display: flex;
+}
+.text-settings ul {
+    flex : 1;
+    display: flex;
+    flex-direction: column;
+    /* padding: 8px; */
+}
+.text-settings ul li {
+    flex : 1;
+    display: block;
+    padding: 11px 16px;
+    text-decoration: inherit;
+    user-select: none;
+    font-family: 'Noto Sans KR';
+    color : #474747;
+    cursor: pointer;
+}
+.text-settings ul li:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+.text-settings ul li:active {
+    background: rgba(0, 0, 0, 0.05);
+}
+.text-settings ul li.active {
+    background: rgba(0, 0, 0, 0.05);
+}
+.text-settings ul li * {
+    font-family: 'Noto Sans KR';
+    color : #474747;
+}
+
+
+
+.text-page-settings {
+    border-radius: 5px;
+    border : 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    color: rgb(71, 71, 71);
+    overflow: hidden auto;
+    min-width: 160px;
+    max-width: 320px;
+    max-height: 480px;
+    background-color: white;
+}
+.text-page-settings * {
+    font-family: 'Noto Sans KR';
+    color : #474747;
+}
+
+.text-page-settings .color-settings {
+    padding : 15px 10px;
+}
+.text-page-settings .color-settings button {
+    border-radius: 50%;
+    border : 0;
+    width: 30px;
+    height: 30px;
+    outline: 2px solid #ccc;
+    margin : 5px;
+    cursor: pointer;
+}
+.text-page-settings .color-settings button:hover {
+    outline: 2px solid rgb(0, 150, 250);
+}
+.text-page-settings .color-settings button:active {
+    outline: 2px solid rgb(0, 150, 250);
+}
+.text-page-settings .color-settings button.active {
+    outline: 2px solid rgb(0, 150, 250);
+}
+
+
+
+.c-comp { }
+
+.c-comp > div {
+    margin: 0px -8px;
+    padding: 16px 8px 8px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: rgb(31, 31, 31);
+    white-space: nowrap;
+}
+.c-comp > ul {}
+.c-comp > ul > li {
+    display: flex;
+}
+.c-comp > ul > li button {
+    position: relative;
+    flex : 1;
+    border: 0;
+    background: none;
+    display: block;
+    padding: 11px 16px;
+    text-decoration: inherit;
+    user-select: none;
+    font-family: 'Noto Sans KR';
+    color: #474747;
+    cursor: pointer;
+    text-align: left;
+}
+.c-comp > ul > li button svg {
+        margin-top: auto;
+    margin-bottom: auto;
+    flex: 0 0 auto;
+    pointer-events: none;
+    fill: none;
+    stroke-linecap: round;
+    stroke-opacity: 1;
+    stroke: rgb(71, 71, 71);
+    opacity: 0;
+}
+.c-comp > ul > li button:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+.c-comp > ul > li button:active {
+    background: rgba(0, 0, 0, 0.05);
+}
+.c-comp > ul > li button.active {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.c-comp > ul > li button.active svg {
+    opacity: 1;
+}
+
+
+
+.my-info-wr {}
+.my-info-wr * {
+    font-family: 'Noto Sans KR';
+}
+.my-info-wr .wrs-select-wr div{
+    width: 100%;
+    text-align: right;
+}
+.my-info-wr .wrs-select-wr div button{
+    color : white;
+    background-color: #0096fa;    
+}
+
+.my-info-wr .wrs-select-wr div button:hover {
+    background-color :#007ed2;
+    filter: initial;
+}
+.my-info-wr .wrs-select-wr div button:active {
+    background-color :#0090f0;
+    filter: initial;
+}
+.my-info-imgs {
+    padding : 10px;
+}
+
+
+
+
+
+
+@media (min-width: 1376px) {
+    .wr-content {
+        max-width: 1016px;
+    }
+    .serial-wr {
+        width: 912px;
+    }
+}
+
+/* VIEWER END */
+
+
+
+
+
+
+.ads {
+    border-radius: 10px;
+    position: relative;
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+    margin: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.ads:hover {
+    outline: 2px solid #0096fa;
+}
+.ads > img {
+    width: 100%;
+    margin-top: 90px;
+}
+.ads > div {
+    position: absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.ads-bg-1 {
+    background-image: url('/novelpie/scancat1_public/images/ads/1.jpg');
+    background-size: 300px;
+    animation: updown 20s linear infinite;
+}
+.ads-bg-2 {
+    background-image: url('/novelpie/scancat1_public/images/ads/2.jpg');
+    background-size: 300px;
+    animation: updown 20s linear infinite;
+}
+
+.ads_2 > img {
+    filter: hue-rotate(-45deg);
+}
+
+
+
+@keyframes updown {
+    0% {
+        background-position: -50px 0;
+    }
+    50% {
+        background-position: -50px -180px;
+    }
+    100% {
+        background-position: -50px 0;
+    }
+} 
+
+
+
+
+
+.main-st {
+    height: 100%;
+    padding : 20px;
+}
+.main-st h2 {
+    display: inline-block;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 25px;
+    padding: 0 10px;
+    background-image: linear-gradient(-45deg, #c5f9d7, #f7d486, #f27a7d);
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(1px 1px 0px black);
+}
+.main-st p {
+    font-size: 13px;
+}
+
+.m-d {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.m-d > div {
+    flex : 1;
+    border-radius: 10px;
+    border : 1px solid #0090f0;
+    margin : 5px;
+    padding : 10px;
+}
+.m-d > div:nth-child(1){
+    min-height: 150px;
+    max-height: 150px;
+}
+
+#readTxtEle {
+    white-space: break-spaces;
+}
+
+
+
+.file-zone {
+    position: relative;
+    border : 1px solid #709cff;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.file-zone::before {
+    content: '';
+
+    border-radius: 10px;
+
+    position: absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    /* background: rgba(0, 0, 0, 0.1); */
+    background-color: #0090f0;
+}
+
+.file-zone::after {
+    content: ' ';
+    position: absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: 22px;
+    color : white;
+    width: 100px;
+    height: 100px;
+    background-image: url('/novelpie/scancat1_public/images/folder.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    
+    filter: drop-shadow(2px 4px 6px black) invert(1);
+}
