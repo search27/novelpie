@@ -1,1 +1,312 @@
-htest
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- <meta name="google-site-verification" content="05J_Gc59r2BMn9MvQexJNQdjPUhf7y8OaDmWjx1Y0kI" /> -->
+
+    <script src="/js/lib/jquery-3.7.js"></script>
+    <script src="/js/lib/cryptoJS.min.js"></script>
+    <script src="/js/RxHashChecking.dec.min.js"></script>
+    
+
+    <link href="/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+
+    <script>
+
+      const convertImgToWebp = (ogFile) => {
+        return new Promise(resolve => {
+          let og_src = URL.createObjectURL(ogFile);
+          let canvas = document.createElement('canvas');
+          let ctx = canvas.getContext('2d');
+          let userImage = new Image();
+          userImage.src = og_src;
+
+          userImage.onload = function(){
+            //기존 파일과 사이즈 맞춤
+            canvas.width = userImage.width;
+            canvas.height = userImage.height;
+            ctx.drawImage(userImage, 0, 0);
+
+            //webp 로 변경
+            let webpImage = canvas.toDataURL('image/webp');
+
+            // console.log(webpImage);
+
+            // 변경된 이미지를 다시 파일로 변경 start
+            let blobBin = atob(webpImage.split(',')[1]);
+            let _arr = [];
+            for(var i = 0; i < blobBin.length; i++){
+              _arr.push(blobBin.charCodeAt(i));
+            }
+                  const orgNm = String(ogFile.name);
+                  const fnm = orgNm.substring(0, orgNm.lastIndexOf('.'));
+            let webpFile = new File(
+                [new Uint8Array(_arr)], 
+                fnm+'.webp',
+                {type: 'image/webp'}
+              );
+            
+            resolve(webpFile);
+          }
+        })
+      }
+
+      const init = () => {
+          const fileList = document.getElementById('fileList');
+          const fileZone = document.getElementById('fileZone');
+
+          generator = new RxImageGenerator({
+              target : fileZone,
+              fileList : fileList,
+              totalCnvBtn : document.getElementById('totalCnvBtn')
+              // downloadBtn : downloadBtn,
+          });
+      }
+
+
+
+      const AjaxSender = (method, url, params, callback) => {
+        //   ShowLoading();
+          AjaxTo(method, url, params, callback);
+      }
+      const AjaxTo = (method, url, params, callback) => {
+          setTimeout(() => {
+              $.ajax({
+                  type : method,
+                  url : url,
+                  data : JSON.stringify(params),
+                  contentType:"application/json",
+                  async : true,
+                  success : function(res){
+                      callback(res);
+                  },
+                  complete: function () {
+                    //   HideLoading();
+                  },
+              });
+          }, 0);
+      }
+
+
+
+      document.addEventListener("readystatechange", (event) => {
+        if(document.readyState === 'interactive'){
+            includeHTML();
+        }
+        if(document.readyState === 'complete'){
+            // LoadingInit();
+        }
+      });
+      
+      function includeHTML() {
+        var z;
+        z = document.getElementsByTagName("*");
+        const findEles = [];
+        for (let i = 0; i < z.length; i++) {
+          if (z[i].hasAttribute("include-html")) {
+            findEles.push(z[i]);
+          }
+        }
+
+        for(let i = 0; i < findEles.length; i++){
+          const elmnt = findEles[i];
+          elmnt.style.opacity = 0;
+          const file = elmnt.getAttribute("include-html");
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              LoadHtmlElements(elmnt, this.responseText);
+            }
+          };
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          elmnt.removeAttribute("include-html");
+        }
+      }
+
+      const LoadHtmlElements = (target, html) => {
+        target.innerHTML = html;
+        target.style.filter = `blur(10px)`;
+        target.style.opacity = .5;
+        setTimeout(() => {
+          target.style.opacity = 1;
+          target.style.filter = `blur(5px)`;
+          setTimeout(() => {
+            target.style.opacity = 1;
+            target.style.filter = `blur(0px)`;
+          }, 200);
+        }, 300);
+      }
+
+
+      const DoCheck = function(){
+        setTimeout(()=>{
+          if(!window.RxHashChecking) return DoCheck();
+          if(!window.RxImageGenerator) return DoCheck();
+          initialize();
+        }, 1000);
+      }
+
+
+      const initialize = () => {
+
+        rxhash = new RxHashChecking();
+        rxhash.SetClearCallback(ClearCallback);
+        rxhash.SetDisplayCallback(DisplayList);
+
+        interact = new Interaction();
+        const fileList = document.getElementById('fileList');
+        const fileZone = document.getElementById('fileZone');
+
+        generator = new RxImageGenerator({
+            target : fileZone,
+            fileList : fileList,
+            totalCnvBtn : document.getElementById('totalCnvBtn')
+            // downloadBtn : downloadBtn,
+        });
+
+        interact.ShowMessage('데이터를 불러왔습니다.', 3000);
+        
+      }
+
+      const ClipCopy = function(txt){
+        try {
+          navigator.clipboard.writeText(txt);
+          const msg = `<strong>${txt}</strong> 복사되었습니다`;
+          interact.ShowMessage(msg, 3000);
+        } catch (err) {
+          interact.ShowMessage('에러가 발생했습니다.', 3000);
+        }
+      }
+
+      const ClearCallback = (e) => {
+        const readTxtEle = document.getElementById('readTxtEle');
+        readTxtEle.innerHTML = '<ul></ul>';
+      }
+
+      const clickToCopy = (e) => {
+        const dt = e.target.dataset['dt'];
+        ClipCopy(dt);
+      }
+
+      const DisplayList = (dt) => {
+        const ul = document.getElementById('readTxtEle').children[0];
+        const li = document.createElement('LI');
+        li.innerHTML = `
+          <h3>${dt.fileName}</h3>
+          <div>
+            <div> <span>MD5</span> <span>${dt.MD5}</span> <span onclick='clickToCopy(event)' data-dt='${dt.MD5}'>Copy</span> </div>
+            <div> <span>SHA1</span> <span>${dt.SHA1}</span> <span onclick='clickToCopy(event)' data-dt='${dt.SHA1}'>Copy</span> </div>
+            <div> <span>SHA256</span> <span>${dt.SHA256}</span> <span onclick='clickToCopy(event)' data-dt='${dt.SHA256}'>Copy</span> </div>
+          </div>
+        `;
+        ul.appendChild(li);
+      }
+      
+
+      let interact;
+      let generator;
+      let rxhash;
+      window.onload = function(){
+
+        DoCheck();
+
+
+
+        
+      }
+
+
+      
+    </script>
+ 
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+
+      <!-- NAV START -->
+      
+      <nav class="top-nav">
+        <!-- <div include-html="/pages/Nav.html"></div> -->
+
+
+        <div>
+          <div class="nav-menu">
+            <div class="">
+                <div class="nav-home">
+                    <a class="" href="#" onclick="">HashCat2</a>
+                </div>
+
+            </div>
+          </div>
+          <div class="nav-t-s">
+              <a class="" href="#" onclick="">With AniNews</a>
+          </div>
+        </div>
+        
+
+
+
+      </nav>
+      
+      <!-- NAV END -->
+      
+
+
+      <!-- VIEW -->
+      <section body-html="section" id="viewEle" style="">
+        <div class="wr-content">
+            <!-- HEADER INFO START -->
+            <div style="flex:1;">
+
+              <div class="main-st">
+                <div>
+                  <h2>HashCat2</h2>
+                  <p>* 파일에서 Hash값을 출력합니다.</p>
+                </div>
+                <div class="m-d">
+                  <div>
+                    <div id="fileZone" class="file-zone"></div>
+                  </div>
+                  <div id="readTxtEle"><ul>파일을 업로드해주세요.</ul></div>
+                </div>
+              </div>
+
+            </div>
+            <!-- HEADER INFO END -->
+
+            <!-- SIDE INFO START -->
+            <div class="sub-info">
+              <section class="hrp-banner">
+                <div class="ads ads_1" onclick="window.open('https://pienovel.web.app/')">
+                  <img src="/images/ads/ads.png" alt=""/>
+                  <div class="ads-bg-1"></div>
+                </div>
+                <div class="ads ads_2" onclick="window.open('https://pienovel.web.app/')">
+                    <img src="/images/ads/ads.png" alt=""/>
+                    <div class="ads-bg-2"></div>
+                </div>
+              </section>
+            </div>
+            <!-- SIDE INFO END -->
+
+        </div>
+      </section>
+
+
+    </div>
+
+  </body>
+
+
+</html>
+
