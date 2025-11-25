@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- <meta name="google-site-verification" content="05J_Gc59r2BMn9MvQexJNQdjPUhf7y8OaDmWjx1Y0kI" /> -->
+
+    <script src="/novelpie/imagestopdf_public/js/lib/jquery-3.7.js"></script>
+    <script src="/novelpie/imagestopdf_public/js/lib/rxdrive_jspdf.umd.min.js"></script>
+    <script src="/novelpie/imagestopdf_public/js/lib/RxPdf.dec.min.js"></script>
+
+    <link href="/novelpie/imagestopdf_public/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/imagestopdf_public/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/imagestopdf_public/css/style.css" rel="stylesheet" type="text/css">
+
+    <script>
+
+
+      const AjaxSender = (method, url, params, callback) => {
+        //   ShowLoading();
+          AjaxTo(method, url, params, callback);
+      }
+      const AjaxTo = (method, url, params, callback) => {
+          setTimeout(() => {
+              $.ajax({
+                  type : method,
+                  url : url,
+                  data : JSON.stringify(params),
+                  contentType:"application/json",
+                  async : true,
+                  success : function(res){
+                      callback(res);
+                  },
+                  complete: function () {
+                    //   HideLoading();
+                  },
+              });
+          }, 0);
+      }
+
+
+
+      document.addEventListener("readystatechange", (event) => {
+        if(document.readyState === 'interactive'){
+            includeHTML();
+        }
+        if(document.readyState === 'complete'){
+            // LoadingInit();
+        }
+      });
+      
+      function includeHTML() {
+        var z;
+        z = document.getElementsByTagName("*");
+        const findEles = [];
+        for (let i = 0; i < z.length; i++) {
+          if (z[i].hasAttribute("include-html")) {
+            findEles.push(z[i]);
+          }
+        }
+
+        for(let i = 0; i < findEles.length; i++){
+          const elmnt = findEles[i];
+          elmnt.style.opacity = 0;
+          const file = elmnt.getAttribute("include-html");
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              LoadHtmlElements(elmnt, this.responseText);
+            }
+          };
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          elmnt.removeAttribute("include-html");
+        }
+      }
+
+      const LoadHtmlElements = (target, html) => {
+        target.innerHTML = html;
+        target.style.filter = `blur(10px)`;
+        target.style.opacity = .5;
+        setTimeout(() => {
+          target.style.opacity = 1;
+          target.style.filter = `blur(5px)`;
+          setTimeout(() => {
+            target.style.opacity = 1;
+            target.style.filter = `blur(0px)`;
+          }, 200);
+        }, 300);
+      }
+
+
+      const DoCheck = function(){
+        setTimeout(()=>{
+          if(!window.Interaction) return DoCheck();
+          if(!window.RxImageGenerator) return DoCheck();
+          initialize();
+        }, 1000);
+      }
+      const initialize = () => {
+        interact = new Interaction();
+        const fileZone = document.getElementById('fileZone');
+        generator = new RxImageGenerator({
+            target : fileZone,
+            fileList : document.getElementById('fileList'),
+            parent : undefined,
+        });
+        settings = new RxSettings();
+      }
+
+      
+      let settings;
+      let interact;
+      let generator;
+      window.onload = function(){
+
+        DoCheck();
+
+
+        
+        
+      }
+
+      
+    </script>
+ 
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+
+      <!-- NAV START -->
+      
+      <nav class="top-nav">
+        <!-- <div include-html="/pages/Nav.html"></div> -->
+
+
+        <div>
+          <div class="nav-menu">
+            <div class="">
+                <div class="nav-home">
+                    <a class="" href="#" onclick="">Images To PDF</a>
+                </div>
+
+            </div>
+          </div>
+          <div class="nav-t-s">
+              <a class="" href="#" onclick="">With AniNews</a>
+          </div>
+        </div>
+        
+
+
+
+      </nav>
+      
+      <!-- NAV END -->
+      
+            
+
+
+      <!-- VIEW -->
+      <section body-html="section" id="viewEle" style="">
+        <div class="wr-content">
+            <!-- HEADER INFO START -->
+            <div style="flex:1;">
+
+              <div class="main-st">
+                <div>
+                  <h2>
+                    이미지 파일을 PDF로 만듭니다.
+                    <svg 
+                      onclick="settings.ShowSettings()"
+                    xmlns="http://www.w3.org/2000/svg" version="1.0" width="128.000000pt" height="128.000000pt" viewBox="0 0 128.000000 128.000000" preserveAspectRatio="xMidYMid meet">
+                      <g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                      <path d="M437 1136 c-87 -36 -90 -40 -84 -112 6 -56 4 -63 -18 -84 -21 -20 -34 -23 -84 -21 -53 2 -60 0 -80 -25 -11 -14 -28 -51 -38 -80 l-17 -54 47 -48 c64 -65 65 -98 1 -157 -52 -48 -52 -50 -6 -145 l27 -55 67 0 c91 0 113 -20 109 -100 -2 -42 2 -62 15 -76 17 -18 112 -59 139 -59 8 0 33 20 56 45 59 62 93 62 153 -1 50 -52 52 -52 146 -6 l55 27 0 66 c0 92 16 109 101 109 42 0 67 5 78 15 15 15 56 116 56 138 0 7 -20 33 -45 57 -60 59 -60 87 1 152 51 54 51 56 6 148 l-27 55 -66 0 c-92 0 -109 16 -109 101 0 56 -3 65 -26 83 -15 11 -51 28 -80 38 l-54 17 -48 -47 c-65 -64 -96 -64 -155 -2 -24 25 -48 45 -53 45 -5 0 -35 -11 -67 -24z m313 -330 c52 -34 81 -85 87 -154 6 -72 -24 -133 -86 -177 -37 -26 -51 -30 -109 -30 -79 0 -129 25 -167 84 -69 104 -19 260 95 299 53 17 136 7 180 -22z"/>
+                      </g>
+                    </svg>
+                  </h2>
+                  <p> * 최적화 사이즈 비율 - 1 : 1.418</p>
+                  <p> * 예) 1419 x 2012, 500 x 708.95</p>
+                </div>
+                <div class="m-d">
+                  <div>
+                    <div id="fileZone" class="file-zone"></div>
+                  </div>
+
+                  <div class="file-btn-pdf">
+                    <button id="previewBtnEle" onclick="generator.ShowPop();" disabled>미리보기</button>
+                    <button id="downloadBtnEle" onclick="generator.ClickToDownLoadPdf()" disabled>다운로드</button>
+                    <button id="pdfCvEle" onclick="generator.DoPDF()" disabled>PDF로 변환</button>
+                  </div>
+
+                  <div>
+                    <ul id="fileList" class="file-list">
+                      
+
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- HEADER INFO END -->
+
+             
+
+            <!-- SIDE INFO START -->
+            <div class="sub-info">
+              <section class="hrp-banner">
+                <div class="ads ads_1" onclick="window.open('https://pienovel.web.app/')">
+                  <img src="/novelpie/imagestopdf_public/images/ads/ads.png" alt=""/>
+                  <div class="ads-bg-1"></div>
+                </div>
+                <div class="ads ads_2" onclick="window.open('https://pienovel.web.app/')">
+                    <img src="/novelpie/imagestopdf_public/images/ads/ads.png" alt=""/>
+                    <div class="ads-bg-2"></div>
+                </div>
+              </section>
+            </div>
+            <!-- SIDE INFO END -->
+
+        </div>
+      </section>
+
+
+    </div>
+
+    <!-- POP UP START -->
+    <div id="prevPopEle" class="prev-pop" style="display: none;">
+      <div>
+        <p>* [미리보기]는 [다운로드]되는 PDF파일 보다 화질이 낮습니다.</p>
+        <button onclick="generator.HidePop();">닫기</button>
+        <iframe id="preview" width="100%" height="650" frameborder="0"></iframe>
+      </div>
+    </div>
+    <!-- POP UP END -->
+
+
+
+
+  </body>
+
+
+</html>
+
+
