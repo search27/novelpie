@@ -148,6 +148,15 @@
         const ifrEle = document.getElementById('ifrEle');
         ifrEle.appendChild(ifr);
 
+        const ifr2 = document.createElement('IFRAME');
+        ifr2.classList.add('novelpie-ads-v');
+        ifr2.src = `https://novelpie.org/ads/v`;
+        
+        const vIfrEle = document.getElementById('vIfrEle');
+        vIfrEle.appendChild(ifr);
+
+        
+
       }
 
 
@@ -190,7 +199,6 @@
       <!-- NAV START -->
       
       <nav class="top-nav">
-        <!-- <div include-html="/pages/Nav.html"></div> -->
 
 
         <div>
@@ -303,8 +311,8 @@
             <!-- HEADER INFO END -->
 
             <!-- SIDE INFO START -->
-            <div class="sub-info">
-                <iframe class="novelpie-ads-v" src="https://novelpie.org/ads/v" />
+            <div id="vIfrEle" class="sub-info">
+                <!-- <iframe  class="novelpie-ads-v" src="https://novelpie.org/ads/v" /> -->
             </div>
             <!-- SIDE INFO END -->
 
