@@ -33,8 +33,9 @@
         <script>
             window.onload = function(){
                 const ifr = document.createElement('IFRAME');
-                ifr.src = 'https://novelpie.org/ads/flex';
-
+                const query = `?title=문화콘텐츠의 중심&mention=애니메이션, 소설, 연구주제`;
+                ifr.src = `https://novelpie.org/ads/flex${query}`;
+                
                 const ifrEle = document.getElementById('ifrEle');
                 ifrEle.appendChild(ifr);
             }
