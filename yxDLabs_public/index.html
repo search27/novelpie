@@ -109,6 +109,8 @@
           if(!window.YxDInterface) return DoCheck();
           if(!window.YxDLabs) return DoCheck();
           if(!window.TagEle) return DoCheck();
+          if(!document.getElementById('searchUTUBE_KEYEle')) return DoCheck();
+          if(!document.getElementById('keywordsEle')) return DoCheck();
           
           initialize();
         }, 1000);
