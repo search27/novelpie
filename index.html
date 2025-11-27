@@ -30,15 +30,28 @@
         <link href="/novelpie/public/css/main_index.css" rel="stylesheet" type="text/css">
 
 
+        <script>
+            window.onload = function(){
+                const ifr = document.createElement('IFRAME');
+                ifr.src = 'https://novelpie.org/ads/flex';
+
+                const ifrEle = document.getElementById('ifrEle');
+                ifrEle.appendChild(ifr);
+            }
+        </script>
+
     </head>
     <body>
 
+        
+        <div class="wrapper">
+            <div id="ifrEle" class="sub-info-flex">
+                <!-- <iframe class="novelpie-ads-v" src="https://novelpie.org/ads/flex" /> -->
+            </div>
+        </div>
+
         <div class="wrapper">
 
-
-            <div class="sub-info-flex">
-                <iframe class="novelpie-ads-v" src="https://novelpie.org/ads/flex" />
-            </div>
 
             <div>
                 <div>
@@ -63,6 +76,7 @@
         </div>
 
         
+
         
 
     </body>
