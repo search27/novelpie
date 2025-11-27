@@ -221,3 +221,14 @@ html, body {
     width: 100%;
     height: 100%;
 }
+
+.sub-info-flex {
+    width: 100%;
+    height: 200px;
+    padding: 0 !important;
+}
+.sub-info-flex iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
