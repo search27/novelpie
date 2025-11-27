@@ -1,0 +1,63 @@
+.rx-pagination-wrapper {
+    position: relative;
+}
+
+.rx-pagination {
+    width: 100%;
+    padding : 10px;
+    /* color : #343f49; */
+}
+
+.rx-pagination .paging {
+    display: flex;
+    width: max-content;
+    margin : 0 auto;
+}
+.rx-pagination .paging > div {
+}
+
+.number-wrap {
+}
+
+.rx-pagination a {
+    display: inline-block;
+    border : 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    text-decoration: none;
+    padding : 5px;
+    line-height: 30px;
+}
+
+.paginationjs-pages ul {
+    display: flex;
+}
+.paginationjs-pages ul li {
+    margin : 0 1px;
+}
+.paginationjs-pages ul li.active {
+    border-radius: 5px;
+    /* background-color: rgba(255, 255, 255, 0.5); */
+}
+.paginationjs-pages ul a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.paginationjs-pages ul a:active {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+.pre-wrap a {
+    border : 0;
+}
+.pre-wrap i {
+    font-size: 22px;
+    color : white;
+    line-height: 27px;
+}
+.next-wrap a { border : 0; }
+.next-wrap i {
+    font-size: 22px;
+    color : white;
+    line-height: 27px;
+}

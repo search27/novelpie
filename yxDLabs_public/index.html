@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- <meta name="google-site-verification" content="05J_Gc59r2BMn9MvQexJNQdjPUhf7y8OaDmWjx1Y0kI" /> -->
+
+    <script src="/novelpie/yxDLabs_public/js/lib/jquery-3.7.js"></script>
+    
+    
+    
+
+    <script src="/novelpie/yxDLabs_public/js/lib/skinPacks.js"></script>
+    <script src="/novelpie/yxDLabs_public/js/lib/pagination.min.js"></script>
+    
+    
+    <script src="/novelpie/yxDLabs_public/js/lib/YxDLabs.dec.min.js"></script>
+
+
+    <link href="/novelpie/yxDLabs_public/css/RxPageNation.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/yxDLabs_public/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/yxDLabs_public/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/yxDLabs_public/css/style.css" rel="stylesheet" type="text/css">
+
+    <script>
+
+
+      const AjaxSender = (method, url, params, callback) => {
+        //   ShowLoading();
+          AjaxTo(method, url, params, callback);
+      }
+      const AjaxTo = (method, url, params, callback) => {
+          setTimeout(() => {
+              $.ajax({
+                  type : method,
+                  url : url,
+                  data : JSON.stringify(params),
+                  contentType:"application/json",
+                  async : true,
+                  success : function(res){
+                      callback(res);
+                  },
+                  complete: function () {
+                    //   HideLoading();
+                  },
+              });
+          }, 0);
+      }
+
+
+
+      document.addEventListener("readystatechange", (event) => {
+        if(document.readyState === 'interactive'){
+            includeHTML();
+        }
+        if(document.readyState === 'complete'){
+            // LoadingInit();
+        }
+      });
+      
+      function includeHTML() {
+        var z;
+        z = document.getElementsByTagName("*");
+        const findEles = [];
+        for (let i = 0; i < z.length; i++) {
+          if (z[i].hasAttribute("include-html")) {
+            findEles.push(z[i]);
+          }
+        }
+
+        for(let i = 0; i < findEles.length; i++){
+          const elmnt = findEles[i];
+          elmnt.style.opacity = 0;
+          const file = elmnt.getAttribute("include-html");
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              LoadHtmlElements(elmnt, this.responseText);
+            }
+          };
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          elmnt.removeAttribute("include-html");
+        }
+      }
+
+      const LoadHtmlElements = (target, html) => {
+        target.innerHTML = html;
+        target.style.filter = `blur(10px)`;
+        target.style.opacity = .5;
+        setTimeout(() => {
+          target.style.opacity = 1;
+          target.style.filter = `blur(5px)`;
+          setTimeout(() => {
+            target.style.opacity = 1;
+            target.style.filter = `blur(0px)`;
+          }, 200);
+        }, 300);
+      }
+
+
+      const DoCheck = function(){
+        setTimeout(()=>{
+          if(!window.Interaction) return DoCheck();
+          if(!window.YxDInterface) return DoCheck();
+          if(!window.YxDLabs) return DoCheck();
+          if(!window.TagEle) return DoCheck();
+          
+          initialize();
+        }, 1000);
+      }
+      const initialize = () => {
+        interact = new Interaction();
+        
+        _interface = new YxDInterface();
+        yxDLabs = new YxDLabs();
+
+        const url = `${gUrl}/webads/cate_info`;
+        yxDLabs.CallYtData(url, {}, function(res){
+          gCate = res['cateInfo'];
+          _interface.CreateCate(gCate);
+          _interface.CreateSearchCate(gCate);
+        });
+
+        const searchUTUBE_KEYEle = document.getElementById('searchUTUBE_KEYEle');
+        searchUTUBE_KEYEle.addEventListener('keyup', function(e){ if(e.keyCode === 13){ yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(e.target.value), {}, yxDLabs.LoadYtData.bind(yxDLabs)); } });
+
+        const keywordsEle = document.getElementById('keywordsEle');
+        keywordsEle.addEventListener('keyup', function(e){ if(e.keyCode === 13){ _interface.SearchData(); } });
+
+        _interface.SearchData();
+        
+        
+        tags = new TagEle();
+        tags.InitEvents();
+      }
+
+
+
+      const ShowPage = (num) => {
+        const viewEle = document.getElementById('viewEle');
+        const listEle = document.getElementById('listEle');
+        const eles = [viewEle, listEle];
+        for(let i = 0; i < eles.length; i++){ eles[i].style.display = 'none';}
+        eles[num-1].style.display = 'block';
+
+      }
+
+
+      const gUrl = `http://localhost:3000`;
+      let settings;
+      let interact;
+      let yxDLabs;
+      let _interface;
+
+      let tags;
+      let gCate;
+      
+      window.onload = function(){
+
+        DoCheck();
+
+
+
+        const ifr = document.createElement('IFRAME');
+        const query = `?title=문화콘텐츠의 중심&mention=애니메이션, 소설, 연구주제`;
+        ifr.src = `https://novelpie.org/ads/flex${query}`;
+        
+        const ifrEle = document.getElementById('ifrEle');
+        ifrEle.appendChild(ifr);
+
+      }
+
+      
+    </script>
+ 
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+
+      <!-- NAV START -->
+      
+      <nav class="top-nav">
+        <!-- <div include-html="/pages/Nav.html"></div> -->
+
+
+        <div>
+          <div class="nav-menu">
+            <div class="">
+                <div class="nav-home">
+                    <a class="" href="#" onclick="">YxD Labs</a>
+                </div>
+            </div>
+          </div>
+          <div class="nav-t-s">
+              <a class="" href="#" onclick="">With AniNews</a>
+              <button onclick="ShowPage(1)">등록</button>
+              <button onclick="ShowPage(2)">검색</button>
+          </div>
+        </div>
+        
+
+
+
+      </nav>
+      
+      <!-- NAV END -->
+      <div class="wrapper">
+          <div id="ifrEle" class="sub-info-flex">
+              <!-- <iframe class="novelpie-ads-v" src="https://novelpie.org/ads/flex" /> -->
+          </div>
+      </div>
+      
+            
+
+
+      <!-- VIEW -->
+      <section body-html="section" id="viewEle" style="display: none;">
+        <div class="wr-content">
+            <!-- HEADER INFO START -->
+            <div style="flex:1;">
+
+              <div class="main-st">
+                <div>
+                  <h2> 유튜브 링크를 공유합니다. </h2>
+                  <!-- <p> * 최적화 사이즈 비율 - 1 : 1.418</p>
+                  <p> * 예) 1419 x 2012, 500 x 708.95</p> -->
+                </div>
+                <div class="m-d">
+
+                  <div class="file-btn-pdf">
+                    <button>등록취소</button>
+                    <button onclick="yxDLabs.Register()">등록</button>
+                  </div>
+
+                  <div>
+                    <div class="search-bar">
+                      <!-- <input type="text" name="" onkeyup="youtubeInputChange(event)" placeholder="zPe1Wah4Lbk"/> -->
+                      <div>
+                          <div>
+                              <svg class="sc-86411070-0 iGgiqT" viewBox="0 0 16 16" size="16"><path d="M8.25739 9.1716C7.46696 9.69512 6.51908 10 5.5 10C2.73858 10 0.5 7.76142 0.5 5C0.5
+                                  2.23858 2.73858 0 5.5 0C8.26142 0 10.5 2.23858 10.5 5C10.5 6.01908 10.1951 6.96696 9.67161
+                                  7.75739L11.7071 9.79288C12.0976 10.1834 12.0976 10.8166 11.7071 11.2071C11.3166 11.5976 10.6834
+                                  11.5976 10.2929 11.2071L8.25739 9.1716ZM8.5 5C8.5 6.65685 7.15685 8 5.5 8C3.84315 8 2.5 6.65685
+                                  2.5 5C2.5 3.34315 3.84315 2 5.5 2C7.15685 2 8.5 3.34315 8.5 5Z" transform="translate(3 3)" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                          </div>
+                          <input id="searchUTUBE_KEYEle" type="text" name="" placeholder="pwmlE3evdPk"/>
+                      </div>
+                    </div>
+
+                    <div class="">
+                      <div class="flabel">
+                          <p>* 유튜브 '키' 값을 입력해주세요. 예시 ) <span class="gray">https://youtu.be/</span><span class="strong1">pwmlE3evdPk</span><span class="gray">?feature=shared</span></p>
+                          <div class="preview">
+                            <h3>미리보기</h3>
+                            <div>
+                              <div class="thumbnail">
+                                <span id="checkedEle" class=""></span>
+                                <canvas id="canvas"></canvas>
+                              </div>
+                              <div class="ads-info">
+                                  <div><span>분류</span><span>
+                                    <select id="cateEle"><option>분류를 가져오고 있습니다.</option></select>
+                                  </span></div>
+                                  <div><span>제목</span><span> <input type="text" id="adsTitleEle" /> </span></div>
+                                  <div class="wr-textarea"><span>설명</span><span> <textarea id="adsExpEle"></textarea> </span></div>
+                                  
+                                  <div class="wr-tag">
+                                    <span>태그</span>
+                                    <div id="tagAddEle" class="wr-tag-input">
+                                        <div class="wr-tag-input-s">
+                                            <input id="tagInputEle" type="text" value="" placeholder="태그 추가">
+                                            <div id="tagRecInputEle" class="wr-tag-input-sub" style="display: none;"></div>
+                                        </div>
+                                        <div id="tagCountInputEle" class="wr-tag-input-limit">0/10</div>
+
+                                    </div>
+                                    
+                                  </div>
+
+
+                                  <div><span>게시자</span><span id="adsAuthEle"></span></div>
+                                  <div><span>링크</span><span id="adsLinkEle"></span></div>
+                              </div>  
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- HEADER INFO END -->
+
+            <!-- SIDE INFO START -->
+            <div class="sub-info">
+                <iframe class="novelpie-ads-v" src="https://novelpie.org/ads/v" />
+            </div>
+            <!-- SIDE INFO END -->
+
+        </div>
+      </section>
+
+      <section body-html="section" id="listEle" style="">
+        <div class="wr-content">
+          <div style="flex:1;">
+              <div class="main-st">
+                <div>
+                  <h2> 등록된 유튜브 링크를 검색합니다. </h2>
+                </div>
+                <div class="m-d">
+                  <div class="search-bar">
+                    <div>
+                        <div>
+                            <svg class="sc-86411070-0 iGgiqT" viewBox="0 0 16 16" size="16"><path d="M8.25739 9.1716C7.46696 9.69512 6.51908 10 5.5 10C2.73858 10 0.5 7.76142 0.5 5C0.5
+                                2.23858 2.73858 0 5.5 0C8.26142 0 10.5 2.23858 10.5 5C10.5 6.01908 10.1951 6.96696 9.67161
+                                7.75739L11.7071 9.79288C12.0976 10.1834 12.0976 10.8166 11.7071 11.2071C11.3166 11.5976 10.6834
+                                11.5976 10.2929 11.2071L8.25739 9.1716ZM8.5 5C8.5 6.65685 7.15685 8 5.5 8C3.84315 8 2.5 6.65685
+                                2.5 5C2.5 3.34315 3.84315 2 5.5 2C7.15685 2 8.5 3.34315 8.5 5Z" transform="translate(3 3)" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <input type="text" id="keywordsEle" name="" onkeyup="" placeholder="제목 + 유튜버"/>
+                    </div>
+                  </div>
+                  <div class="search-btns">
+                    <div class="file-btn-pdf"> <button onclick="_interface.SearchData()">검색</button> </div>
+                    <div class="search-btns-settings">
+                      <h3>검색 설정</h3>
+                      <div id="searchSettingsEle"></div>
+                    </div>
+                  </div>
+
+
+                </div>
+                <div id="searchListEle" class="search-list">
+                  
+                </div>
+                <div id="bgsSearchPaginationEle">
+                  <div class="rx-pagination">
+                      <div class="paging">
+                          <div class="pre-wrap">
+                              <a href="#" title="이전으로" class="arr" onclick='mvPrev()'>
+                                  <i class="mdi mdi-arrow-left"></i>
+                              </a>
+                          </div>
+                          <div id='searchPaginationEle' class="number-wrap">
+                          </div>
+                          <div class="next-wrap">
+                              <a href="#" title="다음으로" class="arr" onclick='mvNext()'>
+                                  <i class="mdi mdi-arrow-right"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+              </div>
+            </div>
+
+        </div>
+      </section>
+
+    </div>
+
+
+
+
+
+  </body>
+
+
+</html>
+
+
