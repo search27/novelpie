@@ -1,55 +1,64 @@
 .wrapper {
-                border-radius: 20px;
-                display: flex;
-                width: 1000px;
-                margin : 0 auto;
-                padding : 20px;
-                background-color: #858585;
+    border-radius: 20px;
+    display: flex;
+    width: 1000px;
+    margin : 0 auto;
+    padding : 20px;
+    background-color: #858585;
 
-            }
-            .wrapper > div {
-                /* color : #858585 */
-                border-radius: 10px;
-                /* background-color: rgba(255, 255, 255, 0.5); */
-                background-color: white;
-                padding : 5px 15px;
-                margin : 5px;
-            }
-            .wrapper > div:nth-child(1){
-                flex : 1;
-            }
-            .wrapper > div h3 {}
-            .wrapper > div span {
-                border : 1px solid #ccc;
-                border-radius: 3px;
-                background-color: #858585;
-                color : white;
-                padding : 1px 5px;
-            }
-            .wrapper > div a {
-                text-decoration: none;
-            }
-                        
-            /* right */
-            .sub-info {
-                margin-left: 24px;
-                width: 220px;
-                height: 630px;
-                flex: 0 0 auto;
-            }
+}
+.wrapper > div {
+    /* color : #858585 */
+    border-radius: 10px;
+    /* background-color: rgba(255, 255, 255, 0.5); */
+    background-color: white;
+    padding : 5px 15px;
+    margin : 5px;
+}
+.wrapper > div:nth-child(1){
+    flex : 1;
+}
+.wrapper > div h3 {}
+.wrapper > div span {
+    border : 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #858585;
+    color : white;
+    padding : 1px 5px;
+}
+.wrapper > div a {
+    text-decoration: none;
+}
+            
+/* right */
+.sub-info {
+    margin-left: 24px;
+    width: 220px;
+    height: 630px;
+    flex: 0 0 auto;
+}
 
-            .sub-info .hrp-banner {
-                position: relative;
-                text-align: center;
-                padding : 10px 0;
-            }
-            .sub-info .hrp-banner img {
-                border-radius: 10px;
-                /* width: 250px; */
-                width: 100%;
-            }
-            .novelpie-ads-v {
-                border : 0;
-                width: 100%;
-                height: 100%;
-            }
+.sub-info .hrp-banner {
+    position: relative;
+    text-align: center;
+    padding : 10px 0;
+}
+.sub-info .hrp-banner img {
+    border-radius: 10px;
+    /* width: 250px; */
+    width: 100%;
+}
+.novelpie-ads-v {
+    border : 0;
+    width: 100%;
+    height: 100%;
+}
+
+.sub-info-flex {
+    width: 100%;
+    height: 200px;
+}
+.sub-info-flex iframe {
+    width: 100%;
+    height: 100%;
+}
