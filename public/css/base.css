@@ -238,7 +238,7 @@ html, body {
         bottom: 0px;
         right: 0px;
         font-size: 10px;
-        width: initial;
+        width: initial !important;
     }
     .nav-t-s button {
         padding: 7px 15px;
