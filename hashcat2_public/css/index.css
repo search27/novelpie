@@ -879,7 +879,6 @@
 .m-d > div {
     flex : 1;
     border-radius: 10px;
-    border : 1px solid #0090f0;
     margin : 5px;
     padding : 10px;
 }
