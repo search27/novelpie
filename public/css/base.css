@@ -246,6 +246,9 @@ html, body {
     .nav-t-s button {
         padding: 7px 15px;
     }
+    .sub-info {
+        display: none;
+    }
 }
 
 

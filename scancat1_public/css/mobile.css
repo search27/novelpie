@@ -1,0 +1,32 @@
+
+@media (max-width: 576px) {
+    html, body {
+        width: 100%;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+    .main-st {
+        padding : 10px 0px;
+    }
+    .main-st h2 {
+        font-size: 20px;
+    }
+   
+
+}
+
+
+@media (min-width: 576px) and (max-width: 768px) {
+    
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    
+}
+
+
+@media (min-width: 992px) {
+    
+}
+
+
