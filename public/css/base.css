@@ -221,8 +221,28 @@ html, body {
 
 
 @media (max-width: 576px) {
-
-
+    .top-nav {
+        position: relative;
+    }
+    .top-nav > div {
+        display: flex;
+    }
+    .nav-menu {
+        display: initial;
+        min-width: 140px;
+        padding: 5px 0;
+    }
+    .nav-t-s {}
+    .nav-t-s a{
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        font-size: 10px;
+        width: initial;
+    }
+    .nav-t-s button {
+        padding: 7px 15px;
+    }
 }
 
 
