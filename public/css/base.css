@@ -250,12 +250,18 @@ html, body {
 
 
 @media (min-width: 576px) and (max-width: 768px) {
-    body {
+    .nav-menu {
+        display: initial !important;
+        min-width: max-content;
+        padding: 5px 0;
     }
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
-    body {
+    .nav-menu {
+        display: initial !important;
+        min-width: max-content;
+        padding: 5px 0;
     }
 }
 
