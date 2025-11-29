@@ -1,0 +1,122 @@
+
+@media (max-width: 576px) {
+    html, body {
+        width: 100%;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+    .main-st {
+        padding : 10px 0px;
+    }
+    .main-st h2 {
+        font-size: 20px;
+    }
+    .m-d > div {
+        padding : 10px 0;
+        margin : 0;
+    }
+    .search-bar > div > div {
+        width: 300px;
+    }
+    .search-bar > div input {
+        width: 300px;
+    }
+
+    .wr-content {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .search-btns-settings > div > label > span:nth-child(2) {
+        flex-wrap: wrap;
+    }
+
+    .search-list {
+        width: 100%;
+        padding : 20px 0;
+        overflow: hidden;
+    }
+
+    .search-list ul li > div > div:nth-child(1) {
+        min-width: 150px;
+        max-width: 150px;
+        min-height: 100px;
+        max-height: 100px;
+    }
+    
+    .search-list ul li > div > div:nth-child(2) {
+        position: relative;
+        border-radius: 5px;
+        height: 103px;
+    }
+    .search-list ul li > div > div:nth-child(2) > span.y-auth a {
+        font-size: 10px;
+    }
+    .search-list ul li > div > div:nth-child(2) > span.y-type {
+        top: -17px;
+        left: -23px;
+        transform: scale(.8);
+    }
+
+    .search-list ul li > div > div:nth-child(2) > span.y-desc {
+        width: 200px;
+        height: 33px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .search-list ul li > div > div:nth-child(2) > span.y-tag {
+        position: absolute;
+        top : -18px;
+        right: 0;
+    }
+
+    .rx-pagination {
+        transform: scale(.7);
+    }
+
+
+    .preview {
+        padding : 0;
+    }
+    .search-bar {
+        padding : 15px 0;
+    }
+    .sub-info {
+        display: none;
+    }
+
+
+    .preview > div > div:nth-child(1) {
+        min-width: 90%;
+        max-width: 90%;
+    }
+    .preview > div > div:nth-child(1) > canvas {
+        width: 100% !important;
+    }
+
+    .preview > div > div:nth-child(2) > div span {
+        max-width: 220px;
+        text-overflow: ellipsis;
+        height: 35px;
+        overflow: hidden;
+    }
+    .preview > div > div:nth-child(2) > div span:nth-child(1) {
+        min-width: 100px;
+    }
+
+}
+
+
+@media (min-width: 576px) and (max-width: 768px) {
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+}
+
+
+@media (min-width: 992px) {
+    
+}
+
+
