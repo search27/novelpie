@@ -132,7 +132,7 @@
 
         const searchUTUBE_KEYEle = document.getElementById('searchUTUBE_KEYEle');
         searchUTUBE_KEYEle.addEventListener('keyup', function(e){ if(e.keyCode === 13){ yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(e.target.value), {}, yxDLabs.LoadYtData.bind(yxDLabs)); } });
-        searchUTUBE_KEYEle.addEventListener('input', function(e){ if(e.keyCode === 13){ yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(e.target.value), {}, yxDLabs.LoadYtData.bind(yxDLabs)); } });
+        searchUTUBE_KEYEle.addEventListener('input', function(e){ alert(e.keyCode); if(e.keyCode === 13){ yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(e.target.value), {}, yxDLabs.LoadYtData.bind(yxDLabs)); } });
 
         const keywordsEle = document.getElementById('keywordsEle');
         keywordsEle.addEventListener('keyup', function(e){ if(e.keyCode === 13){ _interface.SearchData(); } });
