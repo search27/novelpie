@@ -133,6 +133,12 @@
           initialize();
         }, 1000);
       }
+
+      const ClickToSearchUtb = () => {
+        const searchUTUBE_KEYEle = document.getElementById('searchUTUBE_KEYEle');
+        yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(searchUTUBE_KEYEle.value), {}, yxDLabs.LoadYtData.bind(yxDLabs));
+      }
+      
       const initialize = () => {
         interact = new Interaction();
         
@@ -270,7 +276,7 @@
                 <div class="m-d">
 
                   <div class="file-btn-pdf">
-                    <button>등록취소</button>
+                    <button onclick="ClickToSearchUtb()">검색</button>
                     <button onclick="yxDLabs.Register()">등록</button>
                   </div>
 
