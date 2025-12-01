@@ -104,7 +104,23 @@
         }, 300);
       }
 
+      function isMobile() {
+          // navigator.userAgent 문자열을 가져와 소문자로 변환합니다.
+          const userAgent = navigator.userAgent.toLowerCase();
+          
+          // 모바일 기기를 나타내는 주요 키워드들을 확인합니다.
+          const isAndroid = userAgent.indexOf('android') > -1;
+          const isIphone = userAgent.indexOf('iphone') > -1;
+          const isIpad = userAgent.indexOf('ipad') > -1; // iPad는 때때로 PC로 인식될 수 있으나 모바일로 처리
+          const isOpera = userAgent.indexOf('opera mini') > -1;
+          const isWindowsMobile = userAgent.indexOf('windows phone') > -1;
+          
+          // 일반적으로 모바일 기기 userAgent에 포함되는 'mobi' 토큰 확인
+          const isMobi = userAgent.indexOf('mobi') > -1;
 
+          // 위의 키워드 중 하나라도 포함되어 있으면 모바일로 간주합니다.
+          return isAndroid || isIphone || isIpad || isOpera || isWindowsMobile || isMobi;
+      }
       const DoCheck = function(){
         setTimeout(()=>{
           if(!window.Interaction) return DoCheck();
@@ -132,8 +148,12 @@
 
         
         const searchUTUBE_KEYEle = document.getElementById('searchUTUBE_KEYEle');
-        searchUTUBE_KEYEle.addEventListener('keyup', function(e){ if(e.keyCode === 13){ yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(e.target.value), {}, yxDLabs.LoadYtData.bind(yxDLabs)); } });
-        searchUTUBE_KEYEle.addEventListener('input', function(e){ alert(e.key); if(e.key === 'Enter'){ yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(e.target.value), {}, yxDLabs.LoadYtData.bind(yxDLabs)); } });
+        if(isMobile()){
+          searchUTUBE_KEYEle.addEventListener('keydown', function(e){ if(e.keyCode === 13){ yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(e.target.value), {}, yxDLabs.LoadYtData.bind(yxDLabs)); } });
+        }else{
+          searchUTUBE_KEYEle.addEventListener('keyup', function(e){ if(e.keyCode === 13){ yxDLabs.CallYtData(yxDLabs.GetEmbedUrl(e.target.value), {}, yxDLabs.LoadYtData.bind(yxDLabs)); } });
+        }
+        
 
         const keywordsEle = document.getElementById('keywordsEle');
         keywordsEle.addEventListener('keyup', function(e){ if(e.keyCode === 13){ _interface.SearchData(); } });
