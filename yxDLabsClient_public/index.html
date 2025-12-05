@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- <meta name="google-site-verification" content="05J_Gc59r2BMn9MvQexJNQdjPUhf7y8OaDmWjx1Y0kI" /> -->
+
+    <style>
+      .yx-msg {
+        color : white;
+        background-color: #333;
+        padding : 20px;
+      }
+      .yx-msg h3 {
+        color : white;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .yx-msg p {
+        color : white;
+        text-align: center;
+        padding : 5px;
+      }
+      .yx-msg a {
+        color : white;
+        font-size: 12px;
+      }
+      .yx-msg p a {
+        font-size: 18px;
+      }
+      .yx-msg a:hover {
+        color : #76afff;
+      }
+      
+      .m-d > div:nth-child(1) {
+        min-height: 250px !important;
+      }
+      
+
+
+    </style>
+    
+    <!-- <script src="/novelpie/yxDLabsClient_public/js/lib/jquery-3.7.js"></script> -->
+    <script src="/novelpie/yxDLabsClient_public/js/lib/YxDLabsClient.dec.min.js"></script>
+
+    
+
+    <link href="/novelpie/public/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/public/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/yxDLabsClient_public/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/yxDLabsClient_public/css/mobile.css" rel="stylesheet" type="text/css">
+
+
+    <script>
+
+
+      const AjaxSender = (method, url, params, callback) => {
+        //   ShowLoading();
+          AjaxTo(method, url, params, callback);
+      }
+      const AjaxTo = (method, url, params, callback) => {
+          setTimeout(() => {
+              $.ajax({
+                  type : method,
+                  url : url,
+                  data : JSON.stringify(params),
+                  contentType:"application/json",
+                  async : true,
+                  success : function(res){
+                      callback(res);
+                  },
+                  complete: function () {
+                    //   HideLoading();
+                  },
+              });
+          }, 0);
+      }
+
+
+
+
+      const LoadHtmlElements = (target, html) => {
+        target.innerHTML = html;
+        target.style.filter = `blur(10px)`;
+        target.style.opacity = .5;
+        setTimeout(() => {
+          target.style.opacity = 1;
+          target.style.filter = `blur(5px)`;
+          setTimeout(() => {
+            target.style.opacity = 1;
+            target.style.filter = `blur(0px)`;
+          }, 200);
+        }, 300);
+      }
+
+
+      const DoCheck = function(){
+        setTimeout(()=>{
+          if(!window.Interaction) return DoCheck();
+          if(!window.YxDLabsClient) return DoCheck();
+          initialize();
+        }, 1000);
+      }
+      const initialize = () => {
+        interact = new Interaction();
+        pool = new YxDLabsClient({ 
+          mode : 'mid',
+          type : '애니메이션',
+          isMessageShow : true,
+          workerCount : 2,
+        });
+        // pool.SendMsg();
+        interact.ShowMessage(`접속했습니다.`, 3000);
+
+        const ifr = document.createElement('IFRAME');
+        const query = `?title=문화콘텐츠의 중심&mention=애니메이션, 소설, 연구주제`;
+        ifr.src = `https://novelpie.org/ads/flex${query}`;
+        
+        const ifrEle = document.getElementById('ifrEle');
+        ifrEle.appendChild(ifr);
+
+
+        const ifr2 = document.createElement('IFRAME');
+        ifr2.classList.add('novelpie-ads-v');
+        ifr2.src = `https://novelpie.org/ads/v`;
+        
+        const vIfrEle = document.getElementById('vIfrEle');
+        vIfrEle.appendChild(ifr2);
+      }
+
+      
+      let settings;
+      let interact;
+      let generator;
+      let pool;
+      window.onload = function(){
+
+        DoCheck();
+
+      }
+
+
+      const CallRawDt = () => {
+        const type = document.getElementById('typeEle').value;
+        pool.SetType(type);
+        pool.CallRawData();
+      }
+      const GetRawDt = () => {
+        const dt = pool.GetRawData();
+        console.log(dt);
+      }
+      
+      const ClickToUbl = () => {
+        const modeEle = document.getElementById('modeEle');
+        pool.SetMode(modeEle.value);
+
+        const type = document.getElementById('typeEle').value;
+        pool.SetType(type);
+
+        pool.ShowAds();
+      }
+      
+      
+      
+    </script>
+ 
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+
+      <!-- NAV START -->
+      
+      <nav class="top-nav">
+        <!-- <div include-html="/pages/Nav.html"></div> -->
+
+
+        <div>
+          <div class="nav-menu">
+            <div class="">
+                <div class="nav-home">
+                    <a class="" href="#" onclick="">YxD Labs Client</a>
+                </div>
+
+            </div>
+          </div>
+          <div class="nav-t-s">
+              <a class="" href="#" onclick="">With AniNews</a>
+          </div>
+        </div>
+        
+
+
+
+      </nav>
+      
+      <!-- NAV END -->
+      
+      <div class="wrapper">
+          <div id="ifrEle" class="sub-info-flex">
+          </div>
+      </div>
+            
+
+
+      <!-- VIEW -->
+      <section body-html="section" id="viewEle" style="">
+        <div class="wr-content">
+            <!-- HEADER INFO START -->
+            <div style="flex:1;">
+
+              <div class="main-st">
+                <div>
+                  <h2>YxD Labs에 등록한 리스트를 불러옵니다.</h2>
+                  <p></p>
+                </div>
+                <div class="m-d">
+
+                  <div class="file-btn-pdf">
+                    <button id="" onclick="pool.ShowLogo();">ShowLogo</button>
+                    <button id="" onclick="pool.HideLogo();">HideLogo</button>
+
+                    <button id="" onclick="pool.ShowGrid();">ShowGrid</button>
+                    <button id="" onclick="pool.HideGrid();">HideGrid</button>
+
+                    <button id="" onclick="pool.ShowCate()">ShowCate</button>
+                    <button id="" onclick="pool.HideCate()">HideCate</button>
+
+                    <div>
+                      <select id="typeEle">
+                        <option value="">전체</option>
+                        <option value="애니메이션">애니메이션</option>
+                        <option value="게임">게임</option>
+                        <option value="문화, 게임, 애니메이션">문화, 게임, 애니메이션</option>
+                      </select>
+                      <button id="" onclick="CallRawDt()">CallRawData</button>
+                      <button id="" onclick="GetRawDt()">GetRawData</button>
+                    </div>
+
+                    <div>
+                      <select id="modeEle">
+                        <option value="">모드(default : 전체)</option>
+                        <option value="top">상단</option>
+                        <option value="bottom">하단</option>
+                        <option value="left">좌측</option>
+                        <option value="right">우측</option>
+                        <option value="mid">전체</option>
+                      </select>
+                      <button id="" onclick="ClickToUbl()">Utube Ads 불러오기</button>
+                    </div>
+
+                    
+                  </div>
+
+                  <div class="yx-msg">
+                    <h3>
+                      YxD 등록
+                      <a href="https://search27.github.io/novelpie/yxDLabs_public/">https://search27.github.io/novelpie/yxDLabs_public/</a>
+                    </h3>
+                    <p> * YxD에 등록된 유튜브 콘텐츠를 공유합니다. </p>
+                    <p> * 무료 서비스로 서버 사용에 불안정할 수 있습니다. </p>
+                    <p> * 에러 핸드링은 로고 이미지를 불러오는 것으로 체크해주세요. </p>
+                    <p> * 라이브러리 사용기간이 정해져 있습니다. 업데이트 내용은 추후 
+                      <a href="https://blog.naver.com/ze355">[애니뉴스]</a>
+                       블로그에 게시하겠습니다. </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- HEADER INFO END -->
+
+             
+
+            <!-- SIDE INFO START -->
+            <div id="vIfrEle" class="sub-info">
+                
+            </div>
+            <!-- SIDE INFO END -->
+
+        </div>
+      </section>
+
+
+    </div>
+
+
+  </body>
+
+
+</html>
+
+
