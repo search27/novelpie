@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- <meta name="google-site-verification" content="05J_Gc59r2BMn9MvQexJNQdjPUhf7y8OaDmWjx1Y0kI" /> -->
+
+    <!-- <script src="/js/lib/jquery-3.7.js"></script>
+    <script src="/js/workers/RxTextParticlesEffect.dec.min.js"></script>
+    <script src="/js/workers/Gilgamesh.js"></script> -->
+
+    <link href="/js/lib/spectrum.css" rel="stylesheet" type="text/css">
+    <script src="/js/lib/spectrum.js"></script>
+    <script src="/js/lib/jquery.spectrum-ko.js"></script>
+
+    <!-- <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/texteff.css" rel="stylesheet" type="text/css">
+    <link href="/css/mobile.css" rel="stylesheet" type="text/css"> -->
+
+
+    <script src="/novelpie/textParticlesEffect_public/js/lib/jquery-3.7.js"></script>
+    <script src="/novelpie/textParticlesEffect_public/js/lib/RxTextParticlesEffect.dec.min.js"></script>
+    <script src="/novelpie/textParticlesEffect_public/js/lib/Gilgamesh.js"></script>
+
+    <link href="/novelpie/public/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/public/css/style.css" rel="stylesheet" type="text/css">
+
+    <link href="/novelpie/textParticlesEffect_public/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/textParticlesEffect_public/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/textParticlesEffect_public/css/texteff.css" rel="stylesheet" type="text/css">
+
+    <link href="/novelpie/textParticlesEffect_public/css/mobile.css" rel="stylesheet" type="text/css">
+
+
+    <style>
+      
+
+    </style>
+
+
+
+    <script>
+
+
+
+      const AjaxSender = (method, url, params, callback) => {
+        //   ShowLoading();
+          AjaxTo(method, url, params, callback);
+      }
+      const AjaxTo = (method, url, params, callback) => {
+          setTimeout(() => {
+              $.ajax({
+                  type : method,
+                  url : url,
+                  data : JSON.stringify(params),
+                  contentType:"application/json",
+                  async : true,
+                  success : function(res){
+                      callback(res);
+                  },
+                  complete: function () {
+                    //   HideLoading();
+                  },
+              });
+          }, 0);
+      }
+
+
+
+
+      const LoadHtmlElements = (target, html) => {
+        target.innerHTML = html;
+        target.style.filter = `blur(10px)`;
+        target.style.opacity = .5;
+        setTimeout(() => {
+          target.style.opacity = 1;
+          target.style.filter = `blur(5px)`;
+          setTimeout(() => {
+            target.style.opacity = 1;
+            target.style.filter = `blur(0px)`;
+          }, 200);
+        }, 300);
+      }
+
+
+      const DoCheck = function(){
+        setTimeout(()=>{
+          if(!window.Interaction) return DoCheck();
+          if(!window.PEffect) return DoCheck();
+          if(!window.TextParticleEffect) return DoCheck();
+          initialize();
+        }, 1000);
+      }
+      const initialize = () => {
+        interact = new Interaction();
+        interact.ShowMessage(`접속했습니다.`, 3000);
+
+
+        // INIT
+        canvas = document.getElementById("canvas");
+        const cBoundary = canvas.getBoundingClientRect();
+        canvas.width = cBoundary.width;
+        canvas.height = cBoundary.height;
+        
+        pEffect = new PEffect();
+        const ctx = canvas.getContext('2d');
+        gradients = ['A8E6FF', '7DFFB3', 'FFF9BF'];
+        particles = new TextParticleEffect({ 
+          canvas : canvas, gradients,
+          pEffect : pEffect,
+        });
+
+        const align = 'right';
+        const anime = function(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.render();
+            requestAnimationFrame(anime);
+        }
+        anime();
+
+        
+
+        particles.SetQuality(particleOptions.particleQuality);
+        const texts = GetText();
+        particles.SetText(texts);
+        let sameWord = '';
+        textChangeEvent = (e) => {
+            const value = e.target.value.trim();
+            if(sameWord === value) return;
+            sameWord = value;
+
+            // if(value === '') return;
+
+            particleOptions.txt = value;
+            const texts = GetText();
+            particles.SetText(texts);
+        }
+
+
+
+
+        const particleEffectEle = document.getElementById('particleEffectEle');
+        const effectProperties = pEffect.GetProperties();
+
+        let pOpts = ``;
+        for(let i = 0; i < effectProperties.length; i++){
+          pOpts += `<option value='${effectProperties[i]}'>${effectProperties[i]}</option>`;
+        }
+        particleEffectEle.innerHTML = pOpts;
+
+
+        ColorInit();
+
+
+
+
+        // ADS
+
+        const ifr = document.createElement('IFRAME');
+        const query = `?title=문화콘텐츠의 중심&mention=애니메이션, 소설, 연구주제`;
+        ifr.src = `https://novelpie.org/ads/flex${query}`;
+        
+        const ifrEle = document.getElementById('ifrEle');
+        ifrEle.appendChild(ifr);
+
+
+        const ifr2 = document.createElement('IFRAME');
+        ifr2.classList.add('novelpie-ads-v');
+        ifr2.src = `https://novelpie.org/ads/v`;
+        
+        const vIfrEle = document.getElementById('vIfrEle');
+        vIfrEle.appendChild(ifr2);
+      }
+
+      
+      let interact;
+      let particles;
+      let textChangeEvent;
+      let canvas;
+      let gradients = [];
+      let pEffect;
+      window.onload = function(){
+
+        DoCheck();
+
+        
+      }
+
+      
+      const particleOptions = {
+        txt : '&#9775; [애니뉴스] 문화콘텐츠의 중심 &#9728; &#9729; &#9731; &#9730; &#9732; &#9733; &#9752; ',
+        particleQuality : 1,
+        fontSize : 50,
+        fontWeight : '900',
+        fontFamily : 'Nanum Myeongjo',
+        backgroundColor : '',
+        fontColor : [],
+      };
+
+      const GetText = () => {
+        const texts = [
+          {
+            txt : String(particleOptions.txt),
+            coordinate : [0, 0],
+            width : canvas.width,
+            height : canvas.height,
+            lineHeight : 32,
+            fontSize : particleOptions.fontSize,
+            fontWeight : particleOptions.fontWeight,
+            fontFamily : particleOptions.fontFamily,
+            resize : true,
+          },
+        ];
+        return texts;
+      }
+
+      const ColorInit = () => {
+        const colors = new ColorsBg();
+        const list = colors.GetList();
+
+        const bgEle = document.getElementById('bgEle');
+        let li = ``;
+        for(let i = 0; i < list.length; i++){
+          li += `<li style='background:${list[i]}' data-index='${i}'></li>`;
+        }
+        bgEle.innerHTML = li;
+        bgEle.addEventListener('click', function(e){
+          if(e.target.tagName !== 'LI') return;
+          const clr = colors.GetBg(Number(e.target.dataset['index']));
+          document.getElementById('canvas').parentNode.style.background = clr;
+        });
+
+        const particleQualityEle = document.getElementById('particleQualityEle');
+        particleQualityEle.addEventListener('change', function(e){ 
+          particleOptions.particleQuality = Number(e.target.value);
+          if(particleOptions.particleQuality <= 0) particleOptions.particleQuality = 1;
+          particles.SetQuality(particleOptions.particleQuality);
+        });
+        particleQualityEle.value = particleOptions.particleQuality;
+
+
+        const eInputEle = document.getElementById('eInputEle');
+        eInputEle.value = particleOptions.txt;
+
+
+        fontData = ['Nanum Myeongjo', 'Nanum Gothic', 'Noto Sans KR'];
+        let fontOptions = ``;
+        for(let i = 0; i < fontData.length; i++){
+          fontOptions += `<option value='${fontData[i]}'>${fontData[i]}</option>`;
+        }
+        document.getElementById('fontFamilyEle').innerHTML = fontOptions;
+        document.getElementById('fontFamilyEle').addEventListener('change', function(e){
+          particleOptions.fontFamily = e.target.value;
+          const texts = GetText();
+
+          const fontPreEle = document.getElementById('fontPreEle');
+          fontPreEle.innerHTML = `(${particleOptions.fontFamily}) - 폰트 로드에 시간이 걸릴 수 있습니다.`;
+          fontPreEle.style.fontFamily = particleOptions.fontFamily;
+
+          setTimeout(()=>{ particles.SetText(texts); }, 1000);
+        });
+
+
+        const fontSizeEle = document.getElementById('fontSizeEle');
+        fontSizeEle.value = particleOptions.fontSize;
+        fontSizeEle.addEventListener('change', function(e){
+          particleOptions.fontSize = e.target.value;
+          const texts = GetText();
+          setTimeout(()=>{ particles.SetText(texts); }, 0);
+        });
+
+
+        const fontWeightEle = document.getElementById('fontWeightEle');
+        fontWeightEle.addEventListener('change', function(e){
+          particleOptions.fontWeight = e.target.value;
+          const texts = GetText();
+          setTimeout(()=>{ particles.SetText(texts); }, 0);
+        });
+
+
+
+        $("#tPencilColorPick").spectrum({
+          // type : 'flat',
+          color: '#333',
+          showInput: true,
+            change: function(color) {
+              const hex = color.toHexString().replace('#', '');
+              gradients.push(hex);
+              displayColor();
+              particles.SetFontColor(gradients);
+              const texts = GetText();
+              setTimeout(()=>{ particles.SetText(texts); }, 0);
+            },
+            // move: function(color) {},
+            // hide: function(color) {},
+        });
+
+        displayColor();
+      }
+
+      const removeColor = function(e){
+        const index = e.target.dataset['index'];
+        if(!index) return;
+        gradients.splice(Number(index), 1);
+        e.target.remove();
+        displayColor();
+        
+        particles.SetFontColor(gradients);
+        const texts = GetText();
+        setTimeout(()=>{ particles.SetText(texts); }, 0);
+
+        // const ngr = [];
+        // for(let i = 0; i < gradients.length; i++){
+        //   if(i === Number(index)) continue;
+        //   ngr.push(gradients[i]);
+        // }
+        // gradients = ngr;
+      }
+
+      const displayColor = function(){
+        const cSelectedEle = document.getElementById('cSelectedEle');
+        let span = ``;
+        for(let i = 0; i < gradients.length; i++){
+          span += `<span style='background-color:#${gradients[i]}' data-index='${i}' onclick='removeColor(event)'></span>`;
+        }
+        cSelectedEle.innerHTML = span;
+      }
+
+
+
+      const ExecutePEFF = () => {
+        const particleEffectEle = document.getElementById('particleEffectEle');
+        pEffect[particleEffectEle.value]();
+      }
+
+      
+    </script>
+ 
+  </head>
+  <body>
+
+    <div class="wrapper">
+
+
+      <!-- NAV START -->
+      
+      <nav class="top-nav">
+        <div>
+          <div class="nav-menu">
+            <div class="">
+                <div class="nav-home">
+                    <a class="" href="#" onclick="">문자 입자효과</a>
+                </div>
+
+            </div>
+          </div>
+          <div class="nav-t-s">
+              <a class="" href="#" onclick="">With AniNews</a>
+          </div>
+        </div>
+      </nav>
+      
+      <!-- NAV END -->
+
+            
+
+      <div class="top-notice">
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <!-- VIEW -->
+      <section body-html="section" id="viewEle" style="">
+        <div class="wr-content">
+          <div class="l-input">
+            <span>입력</span>
+            <input id="eInputEle" type="text" onkeyup="textChangeEvent(event)" />
+          </div>
+        </div>
+        <div class="wr-content">
+          <div class="wr-content-inter">
+            <div>
+              <div class="w-label">글꼴 & 글자두께 & 글자크기<span id="fontPreEle"></span></div>
+
+              <div style="display: flex;">
+                <select id="fontFamilyEle"></select>
+                <select id="fontWeightEle" style="min-width: 100px; margin: 0 2px;">
+                  <option value="100">100</option>
+                  <option value="200">200</option>
+                  <option value="300">300</option>
+                  <option value="400">400</option>
+                  <option value="500">500</option>
+                  <option value="600">600</option>
+                  <option value="700">700</option>
+                  <option value="800">800</option>
+                  <option value="900" selected>900</option>
+                  <option value="bold">bold</option>
+                  <option value="bolder">bolder</option>
+                  <option value="lighter">lighter</option>
+                  <option value="normal">normal</option>
+                </select>
+                <div class="w-input"> <input type="number" id="fontSizeEle" /> </div>
+              </div>
+
+              <div class="w-label">배경색</div>
+              <div class="w-color">
+                <ul id="bgEle">
+                  <li>color</li>
+                </ul>
+              </div>
+              <div class="w-label">글자색</div>
+              <div class="w-color-font" >
+                <div id="cSelectedEle" class="color-selected" style=""></div>
+                <div style="height: 100px;">
+                  <input type="text" id="tPencilColorPick" style="border: 1px solid #ccc; border-radius: 5px; height: 35px;" />
+                </div>                
+              </div>
+            </div>
+            <div>
+              <div class="w-label">입자</div>
+              
+
+              <div class="w-label">입자 효과 & 입자 품질</div>
+              <div class="w-input" style="display: flex;"> 
+                <button onclick="ExecutePEFF()">실행</button><select id="particleEffectEle"></select>
+
+                <input type="number" id="particleQualityEle" />
+              </div>
+
+            </div>
+          </div>
+
+            
+
+            <!-- SIDE INFO START -->
+            <div id="vIfrEle" class="sub-info">
+            </div>
+            <!-- SIDE INFO END -->
+
+        </div>
+      </section>
+
+
+    </div>
+
+        
+    <div class="wrapper">
+        <div id="ifrEle" class="sub-info-flex">
+        </div>
+    </div>
+
+  </body>
+
+
+</html>
+
+
