@@ -64,7 +64,7 @@
 
       const DoCheck = function(){
         setTimeout(()=>{
-          if(!window.Interaction) return DoCheck();
+          // if(!window.Interaction) return DoCheck();
           initialize();
         }, 1000);
       }
@@ -76,16 +76,16 @@
           
           perspective : 2000,
           angle : 30,
-          bgImage : `/novelpie/public/images/org.jpg`,
+          bgImage : `/novelpie/pocketmoncard_public/images/org.jpg`,
           bgPosition : 'center',
           bgSize : 'contain',
 
-          effectHolo : `/novelpie/public/images/holo.webp`,
+          effectHolo : `/novelpie/pocketmoncard_public/images/holo.webp`,
           effectHoloMixBlendMode : 'color-dodge',
           effectHoloScale : 1.5,
           effectHoloOpacity : .3,
 
-          effectSparkles : `/novelpie/public/images/sparkles.webp`,
+          effectSparkles : `/novelpie/pocketmoncard_public/images/sparkles.webp`,
           effectSparklesMixBlendMode : 'color-dodge',
           effectSparklesScale : 1,
           effectSparklesOpacity : .3,
@@ -97,7 +97,7 @@
 
           holography : true,
           holographyDistance : 50,
-          holographyImage : `/novelpie/public/images/IMG_0754.png`,
+          holographyImage : `/novelpie/pocketmoncard_public/images/IMG_0754.png`,
           holographyScale : 1.2,
 
         });
