@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- <meta name="google-site-verification" content="05J_Gc59r2BMn9MvQexJNQdjPUhf7y8OaDmWjx1Y0kI" /> -->
+
+    <script src="/novelpie/yxDLabsClient_public/js/lib/jquery-3.7.js"></script>
+    <script src="/novelpie/yxDLabsClient_public/js/lib/PocketMonCardEffect.js"></script>
+
+
+    <link href="/novelpie/public/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/public/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/yxDLabsClient_public/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/novelpie/yxDLabsClient_public/css/mobile.css" rel="stylesheet" type="text/css">
+
+
+    <script>
+
+
+      const AjaxSender = (method, url, params, callback) => {
+        //   ShowLoading();
+          AjaxTo(method, url, params, callback);
+      }
+      const AjaxTo = (method, url, params, callback) => {
+          setTimeout(() => {
+              $.ajax({
+                  type : method,
+                  url : url,
+                  data : JSON.stringify(params),
+                  contentType:"application/json",
+                  async : true,
+                  success : function(res){
+                      callback(res);
+                  },
+                  complete: function () {
+                    //   HideLoading();
+                  },
+              });
+          }, 0);
+      }
+
+
+
+
+      const LoadHtmlElements = (target, html) => {
+        target.innerHTML = html;
+        target.style.filter = `blur(10px)`;
+        target.style.opacity = .5;
+        setTimeout(() => {
+          target.style.opacity = 1;
+          target.style.filter = `blur(5px)`;
+          setTimeout(() => {
+            target.style.opacity = 1;
+            target.style.filter = `blur(0px)`;
+          }, 200);
+        }, 300);
+      }
+
+
+      const DoCheck = function(){
+        setTimeout(()=>{
+          if(!window.Interaction) return DoCheck();
+          initialize();
+        }, 1000);
+      }
+      const initialize = () => {
+        interact = new Interaction();
+       
+        new PocketMonCardEffect({
+          ele : document.getElementById('card'),
+          
+          perspective : 2000,
+          angle : 30,
+          bgImage : `/novelpie/public/images/org.jpg`,
+          bgPosition : 'center',
+          bgSize : 'contain',
+
+          effectHolo : `/novelpie/public/images/holo.webp`,
+          effectHoloMixBlendMode : 'color-dodge',
+          effectHoloScale : 1.5,
+          effectHoloOpacity : .3,
+
+          effectSparkles : `/novelpie/public/images/sparkles.webp`,
+          effectSparklesMixBlendMode : 'color-dodge',
+          effectSparklesScale : 1,
+          effectSparklesOpacity : .3,
+
+          shadow : true,
+          shadowColor : `rgba(0, 0, 0, 0.5)`,
+          shadowBlur : 20,
+
+
+          holography : true,
+          holographyDistance : 50,
+          holographyImage : `/novelpie/public/images/IMG_0754.png`,
+          holographyScale : 1.2,
+
+        });
+        
+
+
+
+        interact.ShowMessage(`접속했습니다.`, 3000);
+
+        const ifr = document.createElement('IFRAME');
+        const query = `?title=문화콘텐츠의 중심&mention=애니메이션, 소설, 연구주제`;
+        ifr.src = `https://novelpie.org/ads/flex${query}`;
+        
+        const ifrEle = document.getElementById('ifrEle');
+        ifrEle.appendChild(ifr);
+
+
+        const ifr2 = document.createElement('IFRAME');
+        ifr2.classList.add('novelpie-ads-v');
+        ifr2.src = `https://novelpie.org/ads/v`;
+        
+        const vIfrEle = document.getElementById('vIfrEle');
+        vIfrEle.appendChild(ifr2);
+      }
+
+      
+      let settings;
+      let interact;
+      let generator;
+      let pool;
+      window.onload = function(){
+
+        DoCheck();
+
+      }
+
+
+      const CallRawDt = () => {
+        const type = document.getElementById('typeEle').value;
+        pool.SetType(type);
+        pool.CallRawData();
+      }
+      const GetRawDt = () => {
+        const dt = pool.GetRawData();
+        console.log(dt);
+      }
+      
+      const ClickToUbl = () => {
+        const modeEle = document.getElementById('modeEle');
+        pool.SetMode(modeEle.value);
+
+        const type = document.getElementById('typeEle').value;
+        pool.SetType(type);
+
+        pool.ShowAds();
+      }
+      
+      
+      
+    </script>
+ 
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+
+      <!-- NAV START -->
+      
+      <nav class="top-nav">
+        <!-- <div include-html="/pages/Nav.html"></div> -->
+
+        <div>
+          <div class="nav-menu">
+            <div class="">
+                <div class="nav-home">
+                    <a class="" href="#" onclick="">포켓몬카드 이펙트</a>
+                </div>
+
+            </div>
+          </div>
+          <div class="nav-t-s">
+              <a class="" href="#" onclick="">With AniNews</a>
+          </div>
+        </div>
+        
+
+
+
+      </nav>
+      
+      <!-- NAV END -->
+      
+      <div class="wrapper">
+          <div id="ifrEle" class="sub-info-flex">
+          </div>
+      </div>
+            
+
+
+      <!-- VIEW -->
+      <section body-html="section" id="viewEle" style="">
+        <div class="wr-content">
+           
+          <div>
+
+          </div>
+            <!-- HEADER INFO END -->
+
+             
+
+            <!-- SIDE INFO START -->
+            <div id="vIfrEle" class="sub-info">
+                
+            </div>
+            <!-- SIDE INFO END -->
+
+        </div>
+      </section>
+
+
+    </div>
+
+
+  </body>
+
+
+</html>
+
+
